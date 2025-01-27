@@ -6,6 +6,17 @@ fn main() {
     for a in VALUE_RANGE {
         for b in VALUE_RANGE {
             for c in VALUE_RANGE {
+                // Skip if two or more variables have a non-nominal extreme value
+                let mut extremes = 0;
+                for v in [a, b, c] {
+                    if v != VALUE_RANGE[VALUE_RANGE.len() / 2] {
+                        extremes += 1;
+                    }
+                }
+                if extremes >= 2 {
+                    continue;
+                }
+
                 let result = triangle_type(a as usize, b as usize, c as usize);
                 println!("{},{},{},{}", a, b, c, result as i8);
             }
